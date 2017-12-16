@@ -24,6 +24,8 @@ namespace BudgetMoiCa.Entities
         [StringLength(300)]
         public string Description { get; set; }
 
+        public string Password { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
     }

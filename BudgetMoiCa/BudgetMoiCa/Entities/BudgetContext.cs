@@ -52,6 +52,10 @@ namespace BudgetMoiCa.Entities
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
                 .HasMany(e => e.Items)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
