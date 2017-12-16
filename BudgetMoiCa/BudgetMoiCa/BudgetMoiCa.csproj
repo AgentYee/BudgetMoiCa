@@ -185,11 +185,22 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\Repository\CategoryRepository.cs" />
+    <Compile Include="DAL\Repository\Interface\ICategoryRepository.cs" />
+    <Compile Include="DAL\Repository\Interface\IItemRepository.cs" />
+    <Compile Include="DAL\Repository\Interface\IUserRepository.cs" />
+    <Compile Include="DAL\Repository\ItemRepository.cs" />
+    <Compile Include="DAL\Repository\UserRepository.cs" />
     <Compile Include="Entities\BudgetContext.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Encryption\EncryptionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
