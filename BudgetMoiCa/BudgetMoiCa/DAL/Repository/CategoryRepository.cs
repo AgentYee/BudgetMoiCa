@@ -2,18 +2,18 @@
 using BudgetMoiCa.DAL.Repository.Interface;
 using BudgetMoiCa.Entities;
 using System.Linq;
+using System.Data.Entity;
 
 namespace BudgetMoiCa.DAL.Repository
 {
-    public class ItemRepository : IItemRepository
+    public class CategoryRepository : ICategoryRepository
     {
-        public List<Item> GetUserItems(int userId)
+        public List<Category> GetAllCategories()
         {
             using (BudgetContext ctx = new BudgetContext())
             {
-                List<Item> items = new List<Item>();
-                items = ctx.Items.Where(x => x.UserId == userId).ToList();
-                return items;
+                var categories = ctx.Categories;
+                return categories.ToList();
             }
         }
     }

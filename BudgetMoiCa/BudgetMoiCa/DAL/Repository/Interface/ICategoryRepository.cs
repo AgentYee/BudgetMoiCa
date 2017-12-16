@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace BudgetMoiCa.DAL.Repository.Interface
 {
-    public interface IItemRepository
+    public interface ICategoryRepository
     {
-        List<Item> GetUserItems(int userId);
+        List<Category> GetAllCategories();
     }
 }
