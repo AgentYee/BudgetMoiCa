@@ -48,10 +48,6 @@ namespace BudgetMoiCa.Entities
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .Property(e => e.Description)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
