@@ -44,5 +44,23 @@ namespace BudgetMoiCa.Controllers
             }
             return Ok(categoriesVM);
         }
+
+        [AllowAnonymous]
+        [Route("array")]
+        [ResponseType(typeof(List<string>))]
+        public IHttpActionResult GetArrayOfCategories()
+        {
+            List<Category> categories = repo.GetAllCategories();
+            List<string> catList = new List<string>();
+
+            if (categories.Count > 0)
+            {
+                foreach (Category c in categories)
+                {
+                    catList.Add(c.Name);
+                }
+            }
+            return Ok(catList);
+        }
     }
 }

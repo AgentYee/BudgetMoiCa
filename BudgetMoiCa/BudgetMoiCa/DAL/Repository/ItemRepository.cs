@@ -7,12 +7,17 @@ namespace BudgetMoiCa.DAL.Repository
 {
     public class ItemRepository : IItemRepository
     {
-        public List<Item> GetUserItems(int userId)
+        public List<Item> GetUserItems(string username)
         {
             using (BudgetContext ctx = new BudgetContext())
             {
                 List<Item> items = new List<Item>();
-                items = ctx.Items.Where(x => x.UserId == userId).ToList();
+
+                User user = ctx.Users.Where(x => x.Username == username).FirstOrDefault();
+                if (user == null)
+                    return items;
+
+                items = ctx.Items.Where(x => x.UserId == user.UserId).ToList();
                 return items;
             }
         }

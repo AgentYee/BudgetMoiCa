@@ -13,6 +13,6 @@ namespace BudgetMoiCa.Models.ViewModels.Item
         [Required]
         public float Amount { get; set; }
         [Required]
-        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

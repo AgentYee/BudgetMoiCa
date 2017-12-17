@@ -5,7 +5,7 @@ namespace BudgetMoiCa.DAL.Repository.Interface
 {
     public interface IItemRepository
     {
-        List<Item> GetUserItems(int userId);
+        List<Item> GetUserItems(string username);
         bool CreateItem(Item item);
         Item GetItem(int itemId);
         bool EditItem(Item item);
