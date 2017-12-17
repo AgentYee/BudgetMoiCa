@@ -16,5 +16,14 @@ namespace BudgetMoiCa.DAL.Repository
                 return categories.ToList();
             }
         }
+
+        public Category GetCategory(int categoryId)
+        {
+            using (BudgetContext ctx = new BudgetContext())
+            {
+                Category category = ctx.Categories.Where(x => x.CategoryId == categoryId).FirstOrDefault();
+                return category;
+            }
+        }
     }
 }

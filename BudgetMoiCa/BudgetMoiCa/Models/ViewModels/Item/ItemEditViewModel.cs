@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BudgetMoiCa.Models.ViewModels.Item
 {
-    public class ItemViewModel
+    public class ItemEditViewModel
     {
+        [Required]
         public int ItemId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public float Amount { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
     }
 }

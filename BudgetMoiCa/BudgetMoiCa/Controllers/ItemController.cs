@@ -16,15 +16,21 @@ namespace BudgetMoiCa.Controllers
     public class ItemController : ApiController
     {
         private readonly IItemRepository repo;
+        private readonly IUserRepository repo2;
+        private readonly ICategoryRepository repo3;
 
-        public ItemController(IItemRepository _repo)
+        public ItemController(IItemRepository _repo, IUserRepository _repo2, ICategoryRepository _repo3)
         {
             repo = _repo;
+            repo2 = _repo2;
+            repo3 = _repo3;
         }
 
         public ItemController()
         {
             repo = new ItemRepository();
+            repo2 = new UserRepository();
+            repo3 = new CategoryRepository();
         }
 
         [HttpGet]
@@ -51,6 +57,59 @@ namespace BudgetMoiCa.Controllers
                 return Ok(itemsVM);
             }
             return BadRequest("No user provided.");
+        }
+
+        [HttpPost]
+        [Route("create")]
+        [ResponseType(typeof(ItemCreateViewModel))]
+        public IHttpActionResult CreateItem(ItemCreateViewModel item)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (repo2.GetUser(item.UserId) == null)
+                return BadRequest("Invalid user provided");
+
+            if (repo3.GetCategory(item.CategoryId) == null)
+                return BadRequest("Category invalid");
+
+            Item itemCreate = new Item();
+            itemCreate.CategoryId = item.CategoryId;
+            itemCreate.Name = item.Name;
+            itemCreate.Description = item.Description;
+            itemCreate.Amount = item.Amount;
+            itemCreate.UserId = item.UserId;
+
+            if (repo.CreateItem(itemCreate))
+                return Ok("Item has been successfully created!");
+
+            return BadRequest("An error has occured");
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        [ResponseType(typeof(ItemEditViewModel))]
+        public IHttpActionResult EditItem(ItemEditViewModel item)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Item itemEdit = repo.GetItem(item.ItemId);
+            if (itemEdit == null)
+                return BadRequest("Inexistant item");
+
+            if (repo3.GetCategory(item.CategoryId) == null)
+                return BadRequest("Inexistant category, needs to have one");
+
+            itemEdit.Name = item.Name;
+            itemEdit.Description = item.Description;
+            itemEdit.Amount = item.Amount;
+            itemEdit.CategoryId = item.CategoryId;
+
+            if (repo.EditItem(itemEdit))
+                return Ok("Item has been modified");
+
+            return BadRequest("An error has occured");
         }
     }
 }
