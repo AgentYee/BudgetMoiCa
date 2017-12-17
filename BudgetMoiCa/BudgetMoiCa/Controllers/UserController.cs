@@ -57,5 +57,18 @@ namespace BudgetMoiCa.Controllers
 
             return BadRequest("An error has occured");
         }
+
+        [HttpPost]
+        [Route("verify/{username}")]
+        [ResponseType(typeof(UserViewModel))]
+        public IHttpActionResult VerifyAvailability(string username)
+        {
+            if (!repo.CheckUserExistence(username))
+            {
+                return Ok("Username is available");
+            }
+
+            return BadRequest("Username is not available.");
+        }
     }
 }
