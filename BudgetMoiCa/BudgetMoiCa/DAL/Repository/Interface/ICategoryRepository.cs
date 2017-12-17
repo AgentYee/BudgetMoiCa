@@ -7,5 +7,6 @@ namespace BudgetMoiCa.DAL.Repository.Interface
     {
         List<Category> GetAllCategories();
         Category GetCategory(int categoryId);
+        Category GetCategoryByName(string categoryName);
     }
 }

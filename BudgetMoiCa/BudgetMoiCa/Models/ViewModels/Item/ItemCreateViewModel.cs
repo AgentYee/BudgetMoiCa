@@ -13,6 +13,6 @@ namespace BudgetMoiCa.Models.ViewModels.Item
         [Required]
         public int CategoryId { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 }
