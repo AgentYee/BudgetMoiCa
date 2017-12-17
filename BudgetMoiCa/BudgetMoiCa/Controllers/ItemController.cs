@@ -48,9 +48,11 @@ namespace BudgetMoiCa.Controllers
                     foreach (Item i in items)
                     {
                         ItemViewModel it = new ItemViewModel();
+                        it.ItemId = i.ItemId;
                         it.Name = i.Name;
                         it.Description = i.Description;
                         it.Amount = (float)i.Amount;
+                        it.CategoryId = i.CategoryId;
                         itemsVM.Add(it);
                     }
                 }

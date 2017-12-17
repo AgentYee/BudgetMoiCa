@@ -37,6 +37,7 @@ namespace BudgetMoiCa.Controllers
                 foreach (Category c in categories)
                 {
                     CategoryViewModel ct = new CategoryViewModel();
+                    ct.CategoryId = c.CategoryId;
                     ct.Name = c.Name;
                     ct.Description = c.Description;
                     categoriesVM.Add(ct);
