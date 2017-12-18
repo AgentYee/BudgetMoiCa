@@ -54,5 +54,18 @@ namespace BudgetMoiCa.DAL.Repository
                 return result >= 1 ? true : false;
             }
         }
+
+        public bool DeleteItem(Item item)
+        {
+            using (BudgetContext ctx = new BudgetContext())
+            {
+                int result = -1;
+                ctx.Items.Attach(item);
+                ctx.Items.Remove(item);
+                result = ctx.SaveChanges();
+
+                return result >= 1 ? true : false;
+            }
+        }
     }
 }

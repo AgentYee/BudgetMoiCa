@@ -117,5 +117,24 @@ namespace BudgetMoiCa.Controllers
 
             return BadRequest("An error has occured");
         }
+
+        [HttpDelete]
+        [Route("delete/{itemId}")]
+        [ResponseType(typeof(int))]
+        public IHttpActionResult DeleteItem(int itemId)
+        {
+            Item item = repo.GetItem(itemId);
+
+            if (item == null)
+            {
+                return BadRequest("Inexistant item");
+            }
+
+            if (repo.DeleteItem(item))
+            {
+                return Ok("Sucessfully deleted item");
+            }
+            return BadRequest("An error has occured");    
+        }
     }
 }

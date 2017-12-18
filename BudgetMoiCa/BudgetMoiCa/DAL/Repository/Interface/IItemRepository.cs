@@ -9,5 +9,6 @@ namespace BudgetMoiCa.DAL.Repository.Interface
         bool CreateItem(Item item);
         Item GetItem(int itemId);
         bool EditItem(Item item);
+        bool DeleteItem(Item item);
     }
 }
