@@ -56,5 +56,14 @@ namespace BudgetMoiCa.DAL.Repository
                 return user;
             }
         }
+
+        public User GetUserByUsername(string username)
+        {
+            using (BudgetContext ctx = new BudgetContext())
+            {
+                User user = ctx.Users.Where(x => x.Username == username).FirstOrDefault();
+                return user;
+            }
+        }
     }
 }

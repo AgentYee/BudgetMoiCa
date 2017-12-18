@@ -12,5 +12,6 @@ namespace BudgetMoiCa.Models.ViewModels.Item
         public string Name { get; set; }
         public string Description { get; set; }
         public float Amount { get; set; }
+        public int CategoryId { get; set; }
     }
 }

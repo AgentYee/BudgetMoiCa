@@ -8,5 +8,6 @@ namespace BudgetMoiCa.DAL.Repository.Interface
         bool RegisterUser(User user);
         bool CheckUserExistence(string username);
         User GetUser(int userId);
+        User GetUserByUsername(string username);
     }
 }

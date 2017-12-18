@@ -34,13 +34,13 @@ namespace BudgetMoiCa.Controllers
         }
 
         [HttpGet]
-        [Route("list/{userId}")]
+        [Route("list/{username}")]
         [ResponseType(typeof(List<ItemViewModel>))]
-        public IHttpActionResult GetUserItems(int userId)
+        public IHttpActionResult GetUserItems(string username)
         {
             if (!string.IsNullOrEmpty("userId"))
             {
-                List<Item> items = repo.GetUserItems(userId);
+                List<Item> items = repo.GetUserItems(username);
                 List<ItemViewModel> itemsVM = new List<ItemViewModel>();
 
                 if (items.Count > 0)
@@ -48,9 +48,11 @@ namespace BudgetMoiCa.Controllers
                     foreach (Item i in items)
                     {
                         ItemViewModel it = new ItemViewModel();
+                        it.ItemId = i.ItemId;
                         it.Name = i.Name;
                         it.Description = i.Description;
                         it.Amount = (float)i.Amount;
+                        it.CategoryId = i.CategoryId;
                         itemsVM.Add(it);
                     }
                 }
@@ -67,18 +69,21 @@ namespace BudgetMoiCa.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (repo2.GetUser(item.UserId) == null)
+
+            User user = repo2.GetUserByUsername(item.Username);
+            if (user == null)
                 return BadRequest("Invalid user provided");
 
-            if (repo3.GetCategory(item.CategoryId) == null)
+            Category cat = repo3.GetCategoryByName(item.CategoryName);
+            if (cat == null)
                 return BadRequest("Category invalid");
 
             Item itemCreate = new Item();
-            itemCreate.CategoryId = item.CategoryId;
+            itemCreate.CategoryId = cat.CategoryId;
             itemCreate.Name = item.Name;
             itemCreate.Description = item.Description;
             itemCreate.Amount = item.Amount;
-            itemCreate.UserId = item.UserId;
+            itemCreate.UserId = user.UserId;
 
             if (repo.CreateItem(itemCreate))
                 return Ok("Item has been successfully created!");
@@ -98,18 +103,38 @@ namespace BudgetMoiCa.Controllers
             if (itemEdit == null)
                 return BadRequest("Inexistant item");
 
-            if (repo3.GetCategory(item.CategoryId) == null)
+            Category cat = repo3.GetCategoryByName(item.CategoryName);
+            if (cat == null)
                 return BadRequest("Inexistant category, needs to have one");
 
             itemEdit.Name = item.Name;
             itemEdit.Description = item.Description;
             itemEdit.Amount = item.Amount;
-            itemEdit.CategoryId = item.CategoryId;
+            itemEdit.CategoryId = cat.CategoryId;
 
             if (repo.EditItem(itemEdit))
                 return Ok("Item has been modified");
 
             return BadRequest("An error has occured");
+        }
+
+        [HttpDelete]
+        [Route("delete/{itemId}")]
+        [ResponseType(typeof(int))]
+        public IHttpActionResult DeleteItem(int itemId)
+        {
+            Item item = repo.GetItem(itemId);
+
+            if (item == null)
+            {
+                return BadRequest("Inexistant item");
+            }
+
+            if (repo.DeleteItem(item))
+            {
+                return Ok("Sucessfully deleted item");
+            }
+            return BadRequest("An error has occured");    
         }
     }
 }

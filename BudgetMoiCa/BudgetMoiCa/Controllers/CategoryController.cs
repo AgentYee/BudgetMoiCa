@@ -37,12 +37,31 @@ namespace BudgetMoiCa.Controllers
                 foreach (Category c in categories)
                 {
                     CategoryViewModel ct = new CategoryViewModel();
+                    ct.CategoryId = c.CategoryId;
                     ct.Name = c.Name;
                     ct.Description = c.Description;
                     categoriesVM.Add(ct);
                 }
             }
             return Ok(categoriesVM);
+        }
+
+        [AllowAnonymous]
+        [Route("array")]
+        [ResponseType(typeof(List<string>))]
+        public IHttpActionResult GetArrayOfCategories()
+        {
+            List<Category> categories = repo.GetAllCategories();
+            List<string> catList = new List<string>();
+
+            if (categories.Count > 0)
+            {
+                foreach (Category c in categories)
+                {
+                    catList.Add(c.Name);
+                }
+            }
+            return Ok(catList);
         }
     }
 }
